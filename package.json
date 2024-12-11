@@ -1,0 +1,71 @@
+{
+  "name": "@kabeep/forex-cli",
+  "description": "A Node.js Library to convert foreign exchange in terminal",
+  "version": "0.1.0-alpha",
+  "type": "module",
+  "main": "./dist/cli.js",
+  "types": "./dist/cli.d.ts",
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "fx": "./dist/cli.js",
+    "forex": "./dist/cli.js"
+  },
+  "scripts": {
+    "dev": "ts-node bin/cli.ts",
+    "prepare": "husky install",
+    "lint": "biome check src bin --write",
+    "lint-staged": "lint-staged",
+    "build": "tsup",
+    "watch": "tsup --watch",
+    "stats": "npm run build && cloc src && size-limit dist/cli.js"
+  },
+  "dependencies": {
+    "@kabeep/forex": "^1.0.1",
+    "lodash.get": "^4.4.2",
+    "lodash.merge": "^4.6.2",
+    "lodash.template": "^4.5.0",
+    "ora": "^8.1.1",
+    "os-locale": "^6.0.2",
+    "update-notifier": "^7.3.1",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/lodash.get": "^4.4.9",
+    "@types/lodash.merge": "^4.6.9",
+    "@types/lodash.template": "^4.5.3",
+    "@types/node": "^22.10.1",
+    "@types/update-notifier": "^6.0.8",
+    "@types/yargs": "^17.0.33",
+    "cloc": "^2.2.0-cloc",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "size-limit": "^11.1.6",
+    "size-limit-preset-node-lib": "^0.3.0",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  },
+  "author": "Zhang Zixin (kabeep)",
+  "homepage": "https://kabeep.github.io/forex-cli/",
+  "repository": "git@github.com:kabeep/forex-cli.git",
+  "bugs": "https://github.com/kabeep/forex-cli/issue",
+  "keywords": [
+    "forex",
+    "foreign",
+    "exchange",
+    "currency",
+    "nodejs",
+    "cli",
+    "terminal",
+    "外汇",
+    "汇率",
+    "货币"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
