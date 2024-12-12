@@ -14,7 +14,7 @@
   },
   "scripts": {
     "dev": "ts-node bin/cli.ts",
-    "prepare": "husky install",
+    "prepare": "husky",
     "lint": "biome check src bin --write",
     "lint-staged": "lint-staged",
     "build": "tsup",
@@ -22,12 +22,17 @@
     "stats": "npm run build && cloc src && size-limit dist/cli.js"
   },
   "dependencies": {
+    "@inquirer/confirm": "^5.1.0",
+    "@inquirer/search": "^3.0.3",
     "@kabeep/forex": "^1.0.1",
+    "@kabeep/node-translate": "^1.1.6",
+    "iso-3166-1": "^2.1.1",
     "lodash.get": "^4.4.2",
     "lodash.merge": "^4.6.2",
     "lodash.template": "^4.5.0",
     "ora": "^8.1.1",
     "os-locale": "^6.0.2",
+    "terminal-table": "^0.0.12",
     "update-notifier": "^7.3.1",
     "yargs": "^17.7.2"
   },

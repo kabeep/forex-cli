@@ -8,7 +8,7 @@ export default defineConfig((opts) => ({
     bundle: true,
     clean: !opts.watch,
     minify: false,
-    treeshake: opts.watch ? false : 'smallest',
+    treeshake: !opts.watch,
     sourcemap: false,
     splitting: false,
     cjsInterop: true,

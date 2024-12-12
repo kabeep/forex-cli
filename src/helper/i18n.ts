@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 import template from 'lodash.template';
-import locale from './locale';
+import locale from '../locale';
 
 class I18n {
     protected readonly dictionary: Record<string, string>;

@@ -1,0 +1,24 @@
+export interface BaseOptions {
+    _: Array<string | number>;
+    $0: string;
+}
+
+export interface CommandOptions extends BaseOptions {
+    date?: string;
+    timeout?: number;
+    translate?: boolean;
+}
+
+export interface CurrencyOptions extends CommandOptions {
+    code?: string;
+}
+
+export interface ConvertOptions extends CommandOptions {
+    from?: string;
+    to?: string;
+    amount?: number;
+}
+
+export interface ListOptions extends CommandOptions {
+    pretty?: boolean;
+}
