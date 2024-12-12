@@ -112,7 +112,7 @@ forex list --date "Dec 01, 2024" --timeout 10000 --translate
 | `--version` / `-v` | `boolean` | true | `false`    | 显示版本号                 |
 | `--help` / `-h`    | `boolean` | true | `false`    | 显示帮助信息                |
 
-### $ CONVERT
+### $ CONVERT (默认)
 
 转换货币金额。
 
