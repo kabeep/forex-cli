@@ -54,7 +54,7 @@
     "typescript": "^5.7.2"
   },
   "author": "Zhang Zixin (kabeep)",
-  "homepage": "https://kabeep.github.io/forex-cli/",
+  "homepage": "https://github.com/kabeep/forex-cli#readme",
   "repository": "git@github.com:kabeep/forex-cli.git",
   "bugs": "https://github.com/kabeep/forex-cli/issue",
   "keywords": [
