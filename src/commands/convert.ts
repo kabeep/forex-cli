@@ -100,7 +100,7 @@ async function convert(
         return print(yellow(useStatistic(rate.data)));
     }
 
-    const numericAmount = Number(amount);
+    const numericAmount = Number(`${amount}`.replace(/[^0-9e+-]/g, ''));
     if (!numericAmount || Number.isNaN(numericAmount)) {
         convertOptions.time = '0ms';
         spinner.succeed(i18n('CMD_MSG_FETCH_RATE', convertOptions));
