@@ -86,7 +86,7 @@ forex 1000 --from USD
 ```
 ✔ 获取 latest 可用货币列表 369ms
 ✔ 获取 latest 货币 USD 与 CNY 的汇率 119ms
-✨ 1000.00 美元 (USD) ≈ 7259.48 人民币 (CNY)
+✨ 1,000.00 美元 (USD) ≈ 7,259.48 人民币 (CNY)
 ```
 
 ## 🔩 命令
@@ -115,6 +115,8 @@ forex list --date "Dec 01, 2024" --timeout 10000 --translate
 ### $ CONVERT (默认)
 
 转换货币金额。
+
+支持数字分隔符 `10_000`、统计数值 `10,000` 和科学计数法 `1.23e3`。
 
 ```bash
 forex convert -h
@@ -160,7 +162,7 @@ forex convert [amount]
   ```
   ✔ 获取 latest 可用货币列表 369ms
   ✔ 获取 latest 货币 USD 与 EUR 的汇率 119ms
-  ✨ 1000.00 美元 (USD) ≈ 951.83 欧元 (EUR)
+  ✨ 1,000.00 美元 (USD) ≈ 951.83 欧元 (EUR)
   ```
 
 - 将你的 1000 数量货币转换为美元 （根据操作系统语言环境获取）。
@@ -172,7 +174,7 @@ forex convert [amount]
   ```
   ✔ 获取 latest 可用货币列表 369ms
   ✔ 获取 latest 货币 CNY 与 美元 的汇率 119ms
-  ✨ 1000.00 人民币 (CNY) ≈ 137.75 美元 (USD)
+  ✨ 1,000.00 人民币 (CNY) ≈ 137.75 美元 (USD)
   ```
 
 - 将 1000 美元转换为你的货币 （根据操作系统语言环境获取）。
@@ -184,7 +186,7 @@ forex convert [amount]
   ```
   ✔ 获取 latest 可用货币列表 369ms
   ✔ 获取 latest 货币 USD 与 CNY 的汇率 119ms
-  ✨ 1000.00 美元 (USD) ≈ 7259.48 人民币 (CNY)
+  ✨ 1,000.00 美元 (USD) ≈ 7,259.48 人民币 (CNY)
   ```
 
 ---

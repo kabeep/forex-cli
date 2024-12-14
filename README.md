@@ -99,7 +99,7 @@ forex 1000 --from EUR
 ```
 ✔ Get the list of available currencies on latest 381ms
 ✔ Get the currency exchange rate between EUR and USD on latest 120ms
-✨ 1000.00 Euro (EUR) ≈ 1050.60 US Dollar (USD)
+✨ 1,000.00 Euro (EUR) ≈ 1,050.60 US Dollar (USD)
 ```
 
 ## 🔩 Command
@@ -129,6 +129,8 @@ forex list --date "Dec 01, 2024" --timeout 10000 --translate
 ### $ CONVERT (Default)
 
 Convert currency amounts.
+
+Supports numeric separators `10_000`, grouped numbers `10,000` and scientific notation `1.23e3`.
 
 ```bash
 forex convert -h
@@ -177,7 +179,7 @@ Examples:
   ```
   ✔ Get the list of available currencies on latest 369ms
   ✔ Get the currency exchange rate between USD and EUR on latest 119ms
-  ✨ 1000.00 US Dollar (USD) ≈ 951.83 Euro (EUR)
+  ✨ 1,000.00 US Dollar (USD) ≈ 951.83 Euro (EUR)
   ```
 
 - Convert your 1000 quantity currency to Euros (acquired based on OS's locale).
@@ -189,7 +191,7 @@ Examples:
   ```
   ✔ Get the list of available currencies on latest 369ms
   ✔ Get the currency exchange rate between USD and EUR on latest 119ms
-  ✨ 1000.00 US Dollar (USD) ≈ 951.83 Euro (EUR)
+  ✨ 1,000.00 US Dollar (USD) ≈ 951.83 Euro (EUR)
   ```
 
 - Convert 1000 Euros to your currency (obtained based on OS's locale).
@@ -201,7 +203,7 @@ Examples:
   ```
   ✔ Get the list of available currencies on latest 369ms
   ✔ Get the currency exchange rate between EUR and USD on latest 119ms
-  ✨ 1000.00 Euro (EUR) ≈ 1050.60 US Dollar (USD)
+  ✨ 1,000.00 Euro (EUR) ≈ 1,050.60 US Dollar (USD)
   ```
 
 | Option          | Type     | Optional | Default  | Description                                  |
