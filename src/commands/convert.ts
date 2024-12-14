@@ -11,6 +11,7 @@ import {
     to,
     toDate,
     useDuration,
+    useStatistic,
 } from '../helper';
 import formatDate from '../helper/_internal/format-date';
 import createPalette from '../helper/craete-palette';
@@ -96,7 +97,7 @@ async function convert(
         ensure(!err, 'TIMEOUT_RATE');
         ensure(rate.data, 'INVALID_RATE');
         spinner.succeed(i18n('CMD_MSG_FETCH_RATE', convertOptions));
-        return print(yellow(rate.data.toFixed(2)));
+        return print(yellow(useStatistic(rate.data)));
     }
 
     const numericAmount = Number(amount);
@@ -115,8 +116,8 @@ async function convert(
     ensure(result.data, 'INVALID_CONVERT');
     spinner.succeed(i18n('CMD_MSG_FETCH_RATE', convertOptions));
     return print(
-        yellow(numericAmount.toFixed(2)),
-        yellow(result.data.toFixed(2)),
+        yellow(useStatistic(numericAmount, { precision: 2 })),
+        yellow(useStatistic(result.data, { precision: 2 })),
     );
 }
 

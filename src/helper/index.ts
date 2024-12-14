@@ -8,3 +8,4 @@ export { default as isValidCode } from './is-valid-code';
 export { default as to } from './to';
 export { default as toDate } from './to-date';
 export { default as useDuration } from './use-duration';
+export { default as useStatistic } from './use-statistic';
