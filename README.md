@@ -104,13 +104,13 @@ forex 1000 --from EUR
 
 ## 🔩 Command
 
-| Command      | Aliases              | Default | Parameter                                              | Description                            |
-|--------------|----------------------|---------|--------------------------------------------------------|----------------------------------------|
-| `convert`    | `to`                 | true    | amount                                                 | Convert currency amounts               |
-| `currency`   | `cur` / `ccy` / `cy` | false   | currency name / currency code / country or region name | Get available currency codes and names |
-| `list`       | `ls`                 | false   | -                                                      | Print list of available currencies     |
-| `completion` | -                    | false   | -                                                      | Generate completion script             |
-| `help`       | -                    | false   | -                                                      | Show help                              |
+| Command      | Aliases              | Default | Parameter                                                      | Description                            |
+|--------------|----------------------|---------|----------------------------------------------------------------|----------------------------------------|
+| `convert`    | `to`                 | true    | amount                                                         | Convert currency amounts               |
+| `currency`   | `cur` / `ccy` / `cy` | false   | currency code / country or region code /country or region name | Get available currency codes and names |
+| `list`       | `ls`                 | false   | -                                                              | Print list of available currencies     |
+| `completion` | -                    | false   | -                                                              | Generate completion script             |
+| `help`       | -                    | false   | -                                                              | Show help                              |
 
 **Common Options:**
 
