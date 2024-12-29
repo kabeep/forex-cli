@@ -1,4 +1,5 @@
 import ora, { type Ora } from 'ora';
+import type { CustomError } from './ensure';
 import i18n from './i18n';
 import { to } from './index';
 
@@ -11,7 +12,12 @@ function boundary<T extends unknown[] = unknown[], R = unknown>(
         const [error, result] = await to(function_(...arguments_, spinner));
 
         if (error) {
-            spinner.fail(i18n(`CMD_ERR_${error?.message ?? 'UNKNOWN'}`));
+            spinner.fail(
+                i18n(
+                    `CMD_ERR_${error?.message ?? 'UNKNOWN'}`,
+                    (error as CustomError)?.data,
+                ),
+            );
             return;
         }
 

@@ -38,6 +38,7 @@ export default {
     CMD_ERR_UNKNOWN: '未知异常，若重复出现请通过 https://github.com/kabeep/forex-cli/issues 提交 issue',
     CMD_ERR_UNMEANING: '无意义的货币组，请输入不同的货币代码',
     CMD_ERR_INVALID_DATE: '无效的日期，请检查 --date 参数',
+    CMD_ERR_INVALID_AMOUNT: '"{{amount}}" 不是有效金额, 请输入有效金额, 例如 "1000" 或 "1e3", 再比如 "101,001,001.01" 或 "1b1m1k1.01"',
     CMD_ERR_TIMEOUT_CURRENCIES: '请求可用货币列表超时',
     CMD_ERR_INVALID_CURRENCIES: '指定日期的可用货币列表为空',
     CMD_ERR_INVALID_FROM: '无效的基准货币或区域代码',

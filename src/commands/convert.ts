@@ -8,6 +8,7 @@ import {
     getCodeName,
     i18n,
     isValidCode,
+    normalizeAmount,
     to,
     toDate,
     useDuration,
@@ -100,13 +101,8 @@ async function convert(
         return print(yellow(useStatistic(rate.data)));
     }
 
-    const numericAmount = Number(`${amount}`.replace(/[^0-9e+-]/g, ''));
-    if (!numericAmount || Number.isNaN(numericAmount)) {
-        convertOptions.time = grey('0ms');
-        spinner.succeed(i18n('CMD_MSG_FETCH_RATE', convertOptions));
-        return print(grey('NaN'), grey('NaN'));
-    }
-
+    const numericAmount = normalizeAmount(amount);
+    ensure(!Number.isNaN(numericAmount), 'INVALID_AMOUNT', { amount });
     const convertTimer = useDuration();
     const [error, result] = await to(
         client.convert(baseCode, destCode, numericAmount, date),

@@ -38,6 +38,7 @@ export default {
     CMD_ERR_UNKNOWN: 'Unknown Error: If it occurs repeatedly, please submit an issue in https://github.com/kabeep/forex-cli/issues',
     CMD_ERR_UNMEANING: 'Meaningless currency group, please enter a different currency code',
     CMD_ERR_INVALID_DATE: 'Invalid date, please check --date parameter',
+    CMD_ERR_INVALID_AMOUNT: '"{{amount}}" is not a valid amount. Please enter a valid amount, such as "1000", "1,000", "1e3" or "1k"',
     CMD_ERR_TIMEOUT_CURRENCIES: 'Request for list of available currencies timed out',
     CMD_ERR_INVALID_CURRENCIES: 'The list of available currencies for the specified date is empty',
     CMD_ERR_INVALID_FROM: 'Invalid base currency or locale code',

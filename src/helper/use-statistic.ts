@@ -13,6 +13,7 @@ function useStatistic(
     }: StatisticOptions = {},
 ) {
     const val = String(value);
+    // TODO: This is an unsafe regex. Make it safe.
     const cells = val.match(/^(-?)(\d*)(\.(\d+))?$/);
     if (!cells) return 'Invalid Number';
 

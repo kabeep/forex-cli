@@ -16,7 +16,7 @@ export interface CurrencyOptions extends CommandOptions {
 export interface ConvertOptions extends CommandOptions {
     from?: string;
     to?: string;
-    amount?: number;
+    amount?: string;
 }
 
 export interface ListOptions extends CommandOptions {
