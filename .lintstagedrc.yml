@@ -1,2 +1,2 @@
 "src/**/*.ts":
-  - "biome check src bin --write"
+  - "biome check src bin --write --staged"
