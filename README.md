@@ -102,6 +102,12 @@ forex 1000 --from EUR
 ✨ 1,000.00 Euro (EUR) ≈ 1,050.60 US Dollar (USD)
 ```
 
+or use abbr.
+
+```bash
+fx 1000 -f EUR
+```
+
 ## 🔩 Command
 
 | Command      | Aliases              | Default | Parameter                                                      | Description                            |
@@ -130,7 +136,13 @@ forex list --date "Dec 01, 2024" --timeout 10000 --translate
 
 Convert currency amounts.
 
-Supports numeric separators `10_000`, grouped numbers `10,000` and scientific notation `1.23e3`.
+Supported `amount` formats:
+
+- Basic `10000`
+- Digit Formatting `10_000`
+- Scientific Notation `1.23e3`
+- Statistical Formatting `10,000`
+- Financial Abbreviations `1.1b1m1k1.01`
 
 ```bash
 forex convert -h
