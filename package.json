@@ -17,6 +17,8 @@
     "prepare": "husky",
     "lint": "biome check src bin --write",
     "lint-staged": "lint-staged",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
     "build": "tsup",
     "watch": "tsup --watch",
     "stats": "npm run build && cloc src && size-limit dist/cli.js"
@@ -51,7 +53,8 @@
     "size-limit-preset-node-lib": "^0.3.0",
     "ts-node": "^10.9.2",
     "tsup": "^8.3.5",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   },
   "author": "Zhang Zixin (kabeep)",
   "homepage": "https://github.com/kabeep/forex-cli#readme",
