@@ -102,9 +102,9 @@ async function convert(
 
     const numericAmount = Number(`${amount}`.replace(/[^0-9e+-]/g, ''));
     if (!numericAmount || Number.isNaN(numericAmount)) {
-        convertOptions.time = '0ms';
+        convertOptions.time = grey('0ms');
         spinner.succeed(i18n('CMD_MSG_FETCH_RATE', convertOptions));
-        return print(grey(numericAmount), grey(numericAmount));
+        return print(grey('NaN'), grey('NaN'));
     }
 
     const convertTimer = useDuration();
