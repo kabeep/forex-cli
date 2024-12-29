@@ -15,7 +15,7 @@
   "scripts": {
     "dev": "ts-node bin/cli.ts",
     "prepare": "husky",
-    "lint": "biome check src bin --write",
+    "lint": "biome check src bin test --write",
     "lint-staged": "lint-staged",
     "test": "vitest run",
     "test:watch": "vitest watch",

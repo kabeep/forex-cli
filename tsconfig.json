@@ -19,6 +19,6 @@
         "esm": true,
         "transpileOnly": true
     },
-    "include": ["src", "bin", "types"],
-    "exclude": ["node_modules", "dist", "src"]
+    "include": ["src", "bin", "test", "types"],
+    "exclude": ["node_modules", "dist"]
 }
