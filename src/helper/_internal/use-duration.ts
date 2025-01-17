@@ -1,9 +1,9 @@
-import createPalette from './craete-palette';
+import palette from '../palette';
 
 function useDuration(timestamp?: number | Date) {
     const startTimestamp = Number(timestamp) || Date.now();
 
-    return () => createPalette(90)(`${Date.now() - startTimestamp}ms`);
+    return () => palette.grey(`${Date.now() - startTimestamp}ms`);
 }
 
 export default useDuration;

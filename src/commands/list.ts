@@ -1,10 +1,16 @@
 import { ForexClient } from '@kabeep/forex';
 import type { Ora } from 'ora';
 import Table from 'terminal-table';
-import { boundary, ensure, i18n, to, toDate, useDuration } from '../helper';
-import formatDate from '../helper/_internal/format-date';
+import {
+    boundary,
+    ensure,
+    formatDate,
+    palette,
+    to,
+    toDate,
+    useHandler,
+} from '../helper';
 import useTranslate from '../helper/_internal/use-translate';
-import createPalette from '../helper/craete-palette';
 import type { ListOptions } from './types';
 
 async function list(
@@ -24,47 +30,47 @@ async function list(
 
     const client = new ForexClient({ timeout });
 
-    const green = createPalette(32);
-    const yellow = createPalette(33);
-    const blue = createPalette(34);
+    const currencies = await useHandler(
+        'CMD_MSG_FETCH_CURRENCIES',
+        async () => {
+            const [err, result] = await to(client.getCurrencies(date));
+            ensure(!err, 'TIMEOUT_CURRENCIES');
+            ensure(result.data?.length, 'INVALID_CURRENCIES');
+            return result.data;
+        },
+        { date: formatDateString },
+        spinner,
+    );
 
-    const currenciesOptions = { date: formatDateString, time: '' };
-    spinner.start(i18n('CMD_MSG_FETCH_CURRENCIES', currenciesOptions));
-    const currenciesTimer = useDuration();
-    const [err, currencies] = await to(client.getCurrencies(date));
-    currenciesOptions.time = currenciesTimer();
-    ensure(!err, 'TIMEOUT_CURRENCIES');
+    const translation = await useHandler(
+        'CMD_MSG_FETCH_TRANSLATION',
+        async () => {
+            const [_, result] = translate
+                ? await to(
+                      useTranslate(
+                          currencies.map((item) => item.name),
+                          { timeout },
+                      ),
+                  )
+                : [undefined, undefined];
+            return result;
+        },
+        { date: formatDateString },
+        translate ? spinner : undefined,
+    );
 
-    const currenciesList = currencies.data;
-    ensure(currenciesList?.length, 'INVALID_CURRENCIES');
-    spinner.succeed(i18n('CMD_MSG_FETCH_CURRENCIES', currenciesOptions));
-
-    translate &&
-        spinner.start(i18n('CMD_MSG_FETCH_TRANSLATION', currenciesOptions));
-    const translateTimer = useDuration();
-    const [_, translation] = translate
-        ? await to(
-              useTranslate(
-                  currenciesList.map((item) => item.name),
-                  { timeout },
-              ),
-          )
-        : [undefined, undefined];
-    currenciesOptions.time = translateTimer();
-    translate &&
-        spinner.succeed(i18n('CMD_MSG_FETCH_TRANSLATION', currenciesOptions));
-
-    if (!pretty)
-        return currenciesList
+    if (!pretty) {
+        return currencies
             .map((item, index) => {
                 const uppercaseCode = item.code.toUpperCase();
-                return `${yellow(item.name || uppercaseCode)} / ${translation?.[index] || ' - '} (${blue(uppercaseCode)})`;
+                return `${palette.yellow(item.name || uppercaseCode)} / ${translation?.[index] || ' - '} (${palette.blue(uppercaseCode)})`;
             })
             .join('\n');
+    }
 
-    const data = currenciesList.map(({ name, code }, index) => [
-        blue(code.toUpperCase()),
-        yellow(name || ' - '),
+    const data = currencies.map(({ name, code }, index) => [
+        palette.blue(code.toUpperCase()),
+        palette.yellow(name || ' - '),
         translation?.[index] || ' - ',
     ]);
 
@@ -74,7 +80,14 @@ async function list(
         horizontalLine: true,
     });
 
-    table.push([green('CODE'), green('NAME'), green('TRANSLATION')], ...data);
+    table.push(
+        [
+            palette.green('CODE'),
+            palette.green('NAME'),
+            palette.green('TRANSLATION'),
+        ],
+        ...data,
+    );
 
     return `\n${table}`;
 }

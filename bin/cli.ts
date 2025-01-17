@@ -38,6 +38,7 @@ yargs(hideBin(process.argv))
         default: 10_000,
     })
     .options('translate', {
+        alias: 'T',
         type: 'boolean',
         desc: i18n('CMD_OPTION_TRANSLATE'),
         default: false,

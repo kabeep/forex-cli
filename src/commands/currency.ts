@@ -3,16 +3,15 @@ import type { Ora } from 'ora';
 import {
     boundary,
     ensure,
+    formatDate,
     getCode,
     getCodeName,
-    i18n,
     isValidCode,
+    palette,
     to,
     toDate,
-    useDuration,
+    useHandler,
 } from '../helper';
-import formatDate from '../helper/_internal/format-date';
-import createPalette from '../helper/craete-palette';
 import type { CurrencyOptions } from './types';
 
 async function currency(
@@ -32,30 +31,32 @@ async function currency(
 
     const client = new ForexClient({ timeout });
 
-    const yellow = createPalette(33);
-    const blue = createPalette(34);
-
     const code = await getCode(input, translate, timeout);
 
-    const currenciesOptions = { date: formatDateString, time: '' };
-    spinner.start(i18n('CMD_MSG_FETCH_CURRENCIES', currenciesOptions));
-    const currenciesTimer = useDuration();
-    const [err, currencies] = await to(client.getCurrencies(date));
-    currenciesOptions.time = currenciesTimer();
-    ensure(!err, 'TIMEOUT_CURRENCIES');
-    ensure(currencies.data?.length, 'INVALID_CURRENCIES');
-    spinner.succeed(i18n('CMD_MSG_FETCH_CURRENCIES', currenciesOptions));
+    const currencies = await useHandler(
+        'CMD_MSG_FETCH_CURRENCIES',
+        async () => {
+            const [err, result] = await to(client.getCurrencies(date));
+            ensure(!err, 'TIMEOUT_CURRENCIES');
+            ensure(result.data?.length, 'INVALID_CURRENCIES');
+            return result.data;
+        },
+        { date: formatDateString },
+        spinner,
+    );
 
-    ensure(isValidCode(code, currencies.data), 'INVALID_FROM');
-    translate &&
-        spinner.start(i18n('CMD_MSG_FETCH_TRANSLATION', currenciesOptions));
-    const translateTimer = useDuration();
-    const name = await getCodeName(code, currencies.data, translate, timeout);
-    currenciesOptions.time = translateTimer();
-    translate &&
-        spinner.succeed(i18n('CMD_MSG_FETCH_TRANSLATION', currenciesOptions));
+    ensure(isValidCode(code, currencies), 'INVALID_FROM');
 
-    return `${yellow(name)} (${blue(code)})`;
+    const name = await useHandler(
+        'CMD_MSG_FETCH_TRANSLATION',
+        () => {
+            return getCodeName(code, currencies, translate, timeout);
+        },
+        { date: formatDateString },
+        translate ? spinner : undefined,
+    );
+
+    return `${palette.yellow(name)} (${palette.blue(code)})`;
 }
 
 export default boundary<[CurrencyOptions]>(currency) as (

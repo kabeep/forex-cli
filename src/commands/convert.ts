@@ -4,18 +4,17 @@ import {
     boundary,
     createMessage,
     ensure,
+    formatDate,
     getCode,
     getCodeName,
-    i18n,
     isValidCode,
     normalizeAmount,
+    palette,
     to,
     toDate,
-    useDuration,
+    useHandler,
     useStatistic,
 } from '../helper';
-import formatDate from '../helper/_internal/format-date';
-import createPalette from '../helper/craete-palette';
 import type { ConvertOptions } from './types';
 
 async function convert(
@@ -37,83 +36,103 @@ async function convert(
 
     const client = new ForexClient({ timeout });
 
-    const yellow = createPalette(33);
-    const blue = createPalette(34);
-    const grey = createPalette(90);
-
     const baseCode = await getCode(fromCurrency, translate, timeout);
     const destCode = await getCode(toCurrency, translate, timeout);
     ensure(baseCode !== destCode, 'UNMEANING');
 
-    const currenciesOptions = { date: formatDateString, time: '' };
-    spinner.start(i18n('CMD_MSG_FETCH_CURRENCIES', currenciesOptions));
-    const currenciesTimer = useDuration();
-    const [err, currencies] = await to(client.getCurrencies(date));
-    currenciesOptions.time = currenciesTimer();
-    ensure(!err, 'TIMEOUT_CURRENCIES');
-    ensure(currencies.data?.length, 'INVALID_CURRENCIES');
-    spinner.succeed(i18n('CMD_MSG_FETCH_CURRENCIES', currenciesOptions));
+    const currencies = await useHandler(
+        'CMD_MSG_FETCH_CURRENCIES',
+        async () => {
+            const [err, result] = await to(client.getCurrencies(date));
 
-    ensure(isValidCode(baseCode, currencies.data), 'INVALID_FROM');
-    ensure(isValidCode(destCode, currencies.data), 'INVALID_TO');
+            ensure(!err, 'TIMEOUT_CURRENCIES');
+            ensure(result.data?.length, 'INVALID_CURRENCIES');
 
-    translate &&
-        spinner.start(i18n('CMD_MSG_FETCH_TRANSLATION', currenciesOptions));
-    const translateTimer = useDuration();
-    const baseName = await getCodeName(
-        baseCode,
-        currencies.data,
-        translate,
-        timeout,
+            return result.data;
+        },
+        { date: formatDateString },
+        spinner,
     );
-    const destName = await getCodeName(
-        destCode,
-        currencies.data,
-        translate,
-        timeout,
+
+    ensure(isValidCode(baseCode, currencies), 'INVALID_FROM');
+    ensure(isValidCode(destCode, currencies), 'INVALID_TO');
+
+    const { baseName, destName } = await useHandler(
+        'CMD_MSG_FETCH_TRANSLATION',
+        async () => {
+            const baseName = await getCodeName(
+                baseCode,
+                currencies,
+                translate,
+                timeout,
+            );
+            const destName = await getCodeName(
+                destCode,
+                currencies,
+                translate,
+                timeout,
+            );
+            return { baseName, destName };
+        },
+        { date: formatDateString },
+        translate ? spinner : undefined,
     );
-    currenciesOptions.time = translateTimer();
-    translate &&
-        spinner.succeed(i18n('CMD_MSG_FETCH_TRANSLATION', currenciesOptions));
 
     const print = createMessage(
         baseName,
-        blue(baseCode),
+        palette.blue(baseCode),
         destName,
-        blue(destCode),
+        palette.blue(destCode),
     );
 
-    const convertOptions = {
-        date: formatDateString,
-        base: baseCode,
-        dest: destCode,
-        time: '',
-    };
-    spinner.start(i18n('CMD_MSG_FETCH_RATE', convertOptions));
-
     if (!amount) {
-        const rateTimer = useDuration();
-        const [err, rate] = await to(client.getRate(baseCode, destCode, date));
-        convertOptions.time = rateTimer();
-        ensure(!err, 'TIMEOUT_RATE');
-        ensure(rate.data, 'INVALID_RATE');
-        spinner.succeed(i18n('CMD_MSG_FETCH_RATE', convertOptions));
-        return print(yellow(useStatistic(rate.data)));
+        const rate = await useHandler(
+            'CMD_MSG_FETCH_RATE',
+            async () => {
+                const [err, result] = await to(
+                    client.getRate(baseCode, destCode, date),
+                );
+
+                ensure(!err, 'TIMEOUT_RATE');
+                ensure(result.data, 'INVALID_RATE');
+
+                return result.data;
+            },
+            {
+                date: formatDateString,
+                base: baseCode,
+                dest: destCode,
+            },
+            spinner,
+        );
+        return print(palette.yellow(useStatistic(rate)));
     }
 
     const numericAmount = normalizeAmount(amount);
     ensure(!Number.isNaN(numericAmount), 'INVALID_AMOUNT', { amount });
-    const convertTimer = useDuration();
-    const [error, result] = await to(
-        client.convert(baseCode, destCode, numericAmount, date),
+
+    const resultData = await useHandler(
+        'CMD_MSG_FETCH_RATE',
+        async () => {
+            const [err, result] = await to(
+                client.convert(baseCode, destCode, numericAmount, date),
+            );
+
+            ensure(!err, 'TIMEOUT_CONVERT');
+            ensure(result.data, 'INVALID_CONVERT');
+
+            return result.data;
+        },
+        {
+            date: formatDateString,
+            base: baseCode,
+            dest: destCode,
+        },
+        spinner,
     );
-    convertOptions.time = convertTimer();
-    ensure(!error, 'TIMEOUT_CONVERT');
-    ensure(result.data, 'INVALID_CONVERT');
-    spinner.succeed(i18n('CMD_MSG_FETCH_RATE', convertOptions));
     return print(
-        yellow(useStatistic(numericAmount, { precision: 2 })),
-        yellow(useStatistic(result.data, { precision: 2 })),
+        palette.yellow(useStatistic(numericAmount, { precision: 2 })),
+        palette.yellow(useStatistic(resultData, { precision: 2 })),
     );
 }
 

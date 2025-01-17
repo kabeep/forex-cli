@@ -1,4 +1,4 @@
-import paddedDate from './padded-date';
+import paddedDate from './_internal/padded-date';
 
 function formatDate(value: Date, pattern = 'YYYY-MM-DD') {
     const tokens: Record<string, string> = {
