@@ -70,7 +70,7 @@ async function getCode(code?: string, translate = false, timeout = 10_000) {
 
         const [err, countryCode] = await to(
             search({
-                message: i18n('CMD_MSG_CHOICE_COUNTRY'),
+                message: i18n.t('CMD_MSG_CHOICE_COUNTRY'),
                 pageSize: 10,
                 source: (term: string | undefined) => {
                     if (!term) return searchList;
@@ -96,7 +96,7 @@ async function getCode(code?: string, translate = false, timeout = 10_000) {
             : countryName;
         const [err, isConfirm] = await to(
             confirm({
-                message: i18n('CMD_MSG_CONFIRM_COUNTRY', {
+                message: i18n.t('CMD_MSG_CONFIRM_COUNTRY', {
                     region: confirmName,
                 }),
                 default: true,

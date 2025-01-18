@@ -9,12 +9,12 @@ async function useHandler<T>(
     options: Record<string, string> = {},
     spinner?: Ora,
 ) {
-    spinner?.start(i18n(title, { ...options, time: palette.grey('- ms') }));
+    spinner?.start(i18n.t(title, { ...options, time: palette.grey('- ms') }));
 
     const timer = useDuration();
     const result = await handler();
 
-    spinner?.succeed(i18n(title, { ...options, time: timer() }));
+    spinner?.succeed(i18n.t(title, { ...options, time: timer() }));
 
     return result;
 }

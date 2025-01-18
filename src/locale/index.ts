@@ -1,4 +1,3 @@
-import merge from 'lodash.merge';
 import { LOCALE_CODE } from '../constants';
 import enUS from './en-US';
 import zhCN from './zh-CN';
@@ -17,9 +16,4 @@ function getLocale() {
     }
 }
 
-const locale = merge<typeof enUS, ReturnType<typeof getLocale>>(
-    enUS,
-    getLocale(),
-);
-
-export default locale;
+export default { ...enUS, ...getLocale() };

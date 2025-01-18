@@ -1,35 +1,87 @@
-import get from 'lodash.get';
-import template from 'lodash.template';
 import locale from '../locale';
 
+type LocaleDictionary = {
+    [key: string]: string | LocaleDictionary;
+};
+
 class I18n {
-    protected readonly dictionary: Record<string, string>;
+    private static instance: I18n;
+    private dictionary: LocaleDictionary = {};
 
-    constructor(locale: Record<string, string>) {
-        this.dictionary = locale;
-        this.i18n = this.i18n.bind(this);
-    }
+    private constructor() {}
 
-    public i18n(path: string, variables?: Record<string, string>): string {
-        const value = get(this.dictionary, path);
-
-        if (typeof value === 'string') {
-            return this.compiled(value, variables);
+    public static getInstance(): I18n {
+        if (!I18n.instance) {
+            I18n.instance = new I18n();
         }
-
-        return path;
+        return I18n.instance;
     }
 
-    protected compiled(value: string, variables?: Record<string, string>) {
-        if (variables) return this.compiler(value)(variables);
+    private static escapeHtml(value: string): string {
+        return value.replace(
+            /[&<>"']/g,
+            (char) =>
+                ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;',
+                })[char] || char,
+        );
+    }
+
+    public load(locale: LocaleDictionary): void {
+        this.dictionary = locale;
+    }
+
+    public t(
+        path: string,
+        variables?: Record<string, string>,
+        defaultValue?: string,
+    ): string {
+        const value = this.get(this.dictionary, path);
+
+        if (typeof value === 'object')
+            return this.t(`${path}.DEFAULT`, variables, defaultValue);
+
+        return typeof value === 'string'
+            ? this.compiled(value, variables)
+            : defaultValue || path;
+    }
+
+    private get(
+        obj: Record<string, unknown>,
+        path: string,
+    ): LocaleDictionary[string] | undefined {
+        return path.split('.').reduce<LocaleDictionary[string] | undefined>(
+            (acc, key) => {
+                if (acc && typeof acc === 'object' && key in acc) {
+                    return (acc as Record<string, unknown>)[
+                        key
+                    ] as LocaleDictionary[string];
+                }
+                return undefined;
+            },
+            obj as unknown as LocaleDictionary[string],
+        );
+    }
+
+    private compiled(
+        value: string,
+        variables?: Record<string, string>,
+    ): string {
+        if (variables) {
+            return value.replace(/{{\s*(\w+)\s*}}/g, (_, key) =>
+                I18n.escapeHtml(variables[key] || ''),
+            );
+        }
         return value;
-    }
-
-    private compiler(value: string) {
-        return template(value, { interpolate: /{{([\s\S]+?)}}/g });
     }
 }
 
-const instance = new I18n(locale);
+const i18n = I18n.getInstance();
 
-export default instance.i18n;
+i18n.load(locale);
+
+export default i18n;

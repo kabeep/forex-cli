@@ -13,7 +13,7 @@ function boundary<T extends unknown[] = unknown[], R = unknown>(
 
         if (error) {
             spinner.fail(
-                i18n(
+                i18n.t(
                     `CMD_ERR_${error?.message ?? 'UNKNOWN'}`,
                     (error as CustomError)?.data,
                 ),
@@ -22,7 +22,7 @@ function boundary<T extends unknown[] = unknown[], R = unknown>(
         }
 
         if (!result) {
-            spinner.fail(result?.toString() ?? i18n('CMD_ERR_UNKNOWN'));
+            spinner.fail(result?.toString() ?? i18n.t('CMD_ERR_UNKNOWN'));
             return;
         }
 
