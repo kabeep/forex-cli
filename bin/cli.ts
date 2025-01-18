@@ -131,7 +131,10 @@ yargs(hideBin(process.argv))
                     desc: i18n.t('CMD_OPTION_PRETTY'),
                     default: false,
                 })
-                .example(palette.yellow('forex ls'), i18n.t('CMD_LIST_USAGE_EG_LATEST'))
+                .example(
+                    palette.yellow('forex ls'),
+                    i18n.t('CMD_LIST_USAGE_EG_LATEST'),
+                )
                 .example(
                     palette.yellow('forex ls -p'),
                     i18n.t('CMD_LIST_USAGE_EG_PRETTY'),
