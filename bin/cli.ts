@@ -6,7 +6,7 @@ import yargs, { type Argv } from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import type { ConvertOptions, CurrencyOptions, ListOptions } from '../src';
-import { convert, currency, i18n, list } from '../src';
+import { convert, currency, i18n, list, palette } from '../src';
 
 process.on('SIGINT', () => {
     process.exit(0);
@@ -17,11 +17,6 @@ const pkg = JSON.parse(
 );
 
 updateNotifier({ pkg }).notify({ isGlobal: true });
-
-const palette = (code: number) => (text: string) =>
-    `\u001B[${code}m${text}\u001B[39m`;
-const grey = palette(90);
-const yellow = palette(33);
 
 yargs(hideBin(process.argv))
     .scriptName('forex')
@@ -73,33 +68,33 @@ yargs(hideBin(process.argv))
                     default: 'auto',
                 })
                 .example(
-                    yellow('forex 1000 -f USD -t EUR'),
+                    palette.yellow('forex 1000 -f USD -t EUR'),
                     i18n.t('CMD_CONVERT_USAGE_EG'),
                 )
-                .example(grey('-------'), '')
+                .example(palette.grey('-------'), '')
                 .example(
-                    yellow('forex -t USD'),
+                    palette.yellow('forex -t USD'),
                     i18n.t('CMD_CONVERT_USAGE_EG_CURRENCY'),
                 )
                 .example(
-                    yellow('forex -t US'),
+                    palette.yellow('forex -t US'),
                     i18n.t('CMD_CONVERT_USAGE_EG_LOCALE'),
                 )
                 .example(
-                    yellow('forex -t America'),
+                    palette.yellow('forex -t America'),
                     i18n.t('CMD_CONVERT_USAGE_EG_COUNTRY'),
                 )
-                .example(grey('-------'), '')
+                .example(palette.grey('-------'), '')
                 .example(
-                    yellow('forex --from USD --to EUR'),
+                    palette.yellow('forex --from USD --to EUR'),
                     i18n.t('CMD_CONVERT_USAGE_EG_SPECIFIC'),
                 )
                 .example(
-                    yellow('forex --from USD'),
+                    palette.yellow('forex --from USD'),
                     i18n.t('CMD_CONVERT_USAGE_EG_AUTO'),
                 )
                 .example(
-                    yellow('forex --to USD'),
+                    palette.yellow('forex --to USD'),
                     i18n.t('CMD_CONVERT_USAGE_EG_AUTO'),
                 );
         },
@@ -111,15 +106,15 @@ yargs(hideBin(process.argv))
         (yargs: Argv<CurrencyOptions>) => {
             return yargs
                 .example(
-                    yellow('forex cy US'),
+                    palette.yellow('forex cy US'),
                     i18n.t('CMD_CURRENCY_USAGE_EG_CODE'),
                 )
                 .example(
-                    yellow('forex cy USD'),
+                    palette.yellow('forex cy USD'),
                     i18n.t('CMD_CURRENCY_USAGE_EG_CURRENCY'),
                 )
                 .example(
-                    yellow('forex cy America'),
+                    palette.yellow('forex cy America'),
                     i18n.t('CMD_CURRENCY_USAGE_EG_COUNTRY'),
                 );
         },
@@ -136,29 +131,29 @@ yargs(hideBin(process.argv))
                     desc: i18n.t('CMD_OPTION_PRETTY'),
                     default: false,
                 })
-                .example(yellow('forex ls'), i18n.t('CMD_LIST_USAGE_EG_LATEST'))
+                .example(palette.yellow('forex ls'), i18n.t('CMD_LIST_USAGE_EG_LATEST'))
                 .example(
-                    yellow('forex ls -p'),
+                    palette.yellow('forex ls -p'),
                     i18n.t('CMD_LIST_USAGE_EG_PRETTY'),
                 );
         },
         list,
     )
     .example(
-        yellow('forex list -t US -d 2024-12-01'),
+        palette.yellow('forex list -t US -d 2024-12-01'),
         i18n.t('CMD_OPTION_USAGE_EG_DATE'),
     )
     .example(
-        yellow('forex convert -t US -d "Dec 01, 2024"'),
+        palette.yellow('forex convert -t US -d "Dec 01, 2024"'),
         i18n.t('CMD_OPTION_USAGE_EG_DATE'),
     )
-    .example(grey('-------'), '')
+    .example(palette.grey('-------'), '')
     .example(
-        yellow('forex convert -t US --timeout 30000'),
+        palette.yellow('forex convert -t US --timeout 30000'),
         i18n.t('CMD_OPTION_USAGE_EG_TIMEOUT'),
     )
     .example(
-        yellow('forex currency -T -t US'),
+        palette.yellow('forex currency -T -t US'),
         i18n.t('CMD_OPTION_USAGE_EG_TRANSLATE'),
     )
     .alias('h', 'help')
