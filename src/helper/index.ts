@@ -10,5 +10,6 @@ export { default as normalizeAmount } from './normalize-amount';
 export { default as palette } from './palette';
 export { default as to } from './to';
 export { default as toDate } from './to-date';
+export { default as useClipboard } from './use-clipboard';
 export { default as useHandler } from './use-handler';
 export { default as useStatistic } from './use-statistic';

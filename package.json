@@ -5,7 +5,9 @@
     "type": "module",
     "main": "./dist/cli.js",
     "types": "./dist/cli.d.ts",
-    "files": ["dist"],
+    "files": [
+        "dist"
+    ],
     "bin": {
         "fx": "./dist/cli.js",
         "forex": "./dist/cli.js"
@@ -27,6 +29,7 @@
         "@inquirer/search": "^3.0.3",
         "@kabeep/forex": "^1.0.1",
         "@kabeep/node-translate": "^1.1.6",
+        "clipboardy": "^4.0.0",
         "iso-3166-1": "^2.1.1",
         "ora": "^8.1.1",
         "os-locale": "^6.0.2",

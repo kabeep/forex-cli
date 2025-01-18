@@ -37,6 +37,12 @@ yargs(hideBin(process.argv))
         desc: i18n.t('CMD_OPTION_TIMEOUT'),
         default: 10_000,
     })
+    .options('clipboard', {
+        alias: 'c',
+        type: 'boolean',
+        desc: i18n.t('CMD_OPTION_CLIPBOARD'),
+        default: false,
+    })
     .options('translate', {
         alias: 'T',
         type: 'boolean',

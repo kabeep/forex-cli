@@ -8,6 +8,7 @@ import {
     palette,
     to,
     toDate,
+    useClipboard,
     useHandler,
 } from '../helper';
 import useTranslate from '../helper/_internal/use-translate';
@@ -18,6 +19,7 @@ async function list(
         pretty = false,
         date: dateString = 'latest',
         timeout = 10_000,
+        clipboard = false,
         translate = false,
         verbose = false,
     }: ListOptions,
@@ -60,6 +62,17 @@ async function list(
         { date: formatDateString },
         verbose && translate ? spinner : undefined,
     );
+
+    clipboard &&
+        (await useClipboard(
+            currencies
+                .map(
+                    (item, index) =>
+                        `${item.name || '-'}${translation?.[index] ? ` / ${translation?.[index]}` : ''} (${item.code})`,
+                )
+                .join('\n'),
+            verbose ? spinner : undefined,
+        ));
 
     if (!pretty) {
         return currencies

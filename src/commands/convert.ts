@@ -12,6 +12,7 @@ import {
     palette,
     to,
     toDate,
+    useClipboard,
     useHandler,
     useStatistic,
 } from '../helper';
@@ -23,6 +24,7 @@ async function convert(
         to: toCurrency = 'auto',
         date: dateString = 'latest',
         timeout = 10_000,
+        clipboard = false,
         translate = false,
         verbose = false,
         amount,
@@ -107,6 +109,9 @@ async function convert(
             },
             verbose ? spinner : undefined,
         );
+
+        clipboard && (await useClipboard(rate, verbose ? spinner : undefined));
+
         return print(palette.yellow(useStatistic(rate)));
     }
 
@@ -132,6 +137,9 @@ async function convert(
         },
         verbose ? spinner : undefined,
     );
+
+    clipboard &&
+        (await useClipboard(resultData, verbose ? spinner : undefined));
 
     return print(
         palette.yellow(useStatistic(numericAmount, { precision: 2 })),

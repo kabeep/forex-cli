@@ -10,6 +10,7 @@ import {
     palette,
     to,
     toDate,
+    useClipboard,
     useHandler,
 } from '../helper';
 import type { CurrencyOptions } from './types';
@@ -19,6 +20,7 @@ async function currency(
         code: input = 'auto',
         date: dateString = 'latest',
         timeout = 10_000,
+        clipboard = false,
         translate = false,
         verbose = false,
     }: CurrencyOptions,
@@ -57,6 +59,12 @@ async function currency(
         { date: formatDateString },
         verbose && translate ? spinner : undefined,
     );
+
+    clipboard &&
+        (await useClipboard(
+            `${name} (${code})`,
+            verbose ? spinner : undefined,
+        ));
 
     return `${palette.yellow(name)} (${palette.blue(code)})`;
 }

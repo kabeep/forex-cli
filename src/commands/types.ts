@@ -6,6 +6,7 @@ export interface BaseOptions {
 export interface CommandOptions extends BaseOptions {
     date?: string;
     timeout?: number;
+    clipboard?: boolean;
     translate?: boolean;
     verbose?: boolean;
 }

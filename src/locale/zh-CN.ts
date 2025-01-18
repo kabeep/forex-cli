@@ -20,6 +20,7 @@ export default {
 
     CMD_OPTION_DATE: '指定汇率的日期，或最新的 "latest"',
     CMD_OPTION_TIMEOUT: '请求超时时间 (毫秒)',
+    CMD_OPTION_CLIPBOARD: '写入 (复制) 结果到剪贴板',
     CMD_OPTION_TRANSLATE: '翻译出现的货币或地区名称',
     CMD_OPTION_VERBOSE: '输出程序内部执行的详细步骤信息',
     CMD_OPTION_FROM: '基准货币代码或区域代码',
@@ -41,6 +42,7 @@ export default {
     CMD_ERR_INVALID_DATE: '无效的日期，请检查 --date 参数',
     CMD_ERR_INVALID_AMOUNT: '"{{amount}}" 不是有效金额, 请输入有效金额, 例如 "1000" 或 "1e3", 再比如 "101,001,001.01" 或 "1b1m1k1.01"',
     CMD_ERR_TIMEOUT_CURRENCIES: '请求可用货币列表超时',
+    CMD_ERR_CLIPBOARD_WRITE: '写入剪贴板失败',
     CMD_ERR_INVALID_CURRENCIES: '指定日期的可用货币列表为空',
     CMD_ERR_INVALID_FROM: '无效的基准货币或区域代码',
     CMD_ERR_INVALID_TO: '无效的目标货币或区域代码',

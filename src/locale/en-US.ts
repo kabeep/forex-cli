@@ -20,6 +20,7 @@ export default {
 
     CMD_OPTION_DATE: 'The date for the conversion rate, or "latest" for the most recent',
     CMD_OPTION_TIMEOUT: 'Request timeout (milliseconds)',
+    CMD_OPTION_CLIPBOARD: 'Write (copy) the result to the clipboard',
     CMD_OPTION_TRANSLATE: 'Translate occurrences of currency or region names',
     CMD_OPTION_VERBOSE: 'Output verbose messages on internal operations',
     CMD_OPTION_FROM: 'The base currency code or locale code',
@@ -41,6 +42,7 @@ export default {
     CMD_ERR_INVALID_DATE: 'Invalid date, please check --date parameter',
     CMD_ERR_INVALID_AMOUNT: '"{{amount}}" is not a valid amount. Please enter a valid amount, such as "1000", "1,000", "1e3" or "1k"',
     CMD_ERR_TIMEOUT_CURRENCIES: 'Request for list of available currencies timed out',
+    CMD_ERR_CLIPBOARD_WRITE: 'Clipboard writing failed',
     CMD_ERR_INVALID_CURRENCIES: 'The list of available currencies for the specified date is empty',
     CMD_ERR_INVALID_FROM: 'Invalid base currency or locale code',
     CMD_ERR_INVALID_TO: 'Invalid target currency or locale code',
