@@ -43,6 +43,12 @@ yargs(hideBin(process.argv))
         desc: i18n.t('CMD_OPTION_TRANSLATE'),
         default: false,
     })
+    .options('verbose', {
+        alias: 'V',
+        type: 'boolean',
+        desc: i18n.t('CMD_OPTION_VERBOSE'),
+        default: false,
+    })
     .command(
         ['convert [amount]', 'to', '$0'],
         i18n.t('CMD_CONVERT_USAGE'),
@@ -146,7 +152,7 @@ yargs(hideBin(process.argv))
         i18n.t('CMD_OPTION_USAGE_EG_TIMEOUT'),
     )
     .example(
-        yellow('forex currency -t US --translate'),
+        yellow('forex currency -T -t US'),
         i18n.t('CMD_OPTION_USAGE_EG_TRANSLATE'),
     )
     .alias('h', 'help')

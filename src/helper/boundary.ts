@@ -26,6 +26,7 @@ function boundary<T extends unknown[] = unknown[], R = unknown>(
             return;
         }
 
+        spinner.stop();
         console.log(`✨ ${result}`);
     };
 }

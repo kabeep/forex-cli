@@ -7,6 +7,7 @@ export interface CommandOptions extends BaseOptions {
     date?: string;
     timeout?: number;
     translate?: boolean;
+    verbose?: boolean;
 }
 
 export interface CurrencyOptions extends CommandOptions {

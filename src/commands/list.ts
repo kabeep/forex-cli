@@ -19,6 +19,7 @@ async function list(
         date: dateString = 'latest',
         timeout = 10_000,
         translate = false,
+        verbose = false,
     }: ListOptions,
     spinner: Ora,
 ) {
@@ -30,6 +31,7 @@ async function list(
 
     const client = new ForexClient({ timeout });
 
+    !verbose && spinner.start();
     const currencies = await useHandler(
         'CMD_MSG_FETCH_CURRENCIES',
         async () => {
@@ -39,7 +41,7 @@ async function list(
             return result.data;
         },
         { date: formatDateString },
-        spinner,
+        verbose ? spinner : undefined,
     );
 
     const translation = await useHandler(
@@ -56,7 +58,7 @@ async function list(
             return result;
         },
         { date: formatDateString },
-        translate ? spinner : undefined,
+        verbose && translate ? spinner : undefined,
     );
 
     if (!pretty) {

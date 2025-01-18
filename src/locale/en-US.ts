@@ -21,6 +21,7 @@ export default {
     CMD_OPTION_DATE: 'The date for the conversion rate, or "latest" for the most recent',
     CMD_OPTION_TIMEOUT: 'Request timeout (milliseconds)',
     CMD_OPTION_TRANSLATE: 'Translate occurrences of currency or region names',
+    CMD_OPTION_VERBOSE: 'Output verbose messages on internal operations',
     CMD_OPTION_FROM: 'The base currency code or locale code',
     CMD_OPTION_TO: 'The destination currency code or locale code',
     CMD_OPTION_PRETTY: 'Pretty output format',

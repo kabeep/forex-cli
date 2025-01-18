@@ -20,9 +20,11 @@ async function currency(
         date: dateString = 'latest',
         timeout = 10_000,
         translate = false,
+        verbose = false,
     }: CurrencyOptions,
     spinner: Ora,
 ) {
+    !verbose && spinner.start();
     const isLatest = dateString === 'latest';
     const date = isLatest ? 'latest' : toDate(dateString);
     const formatDateString = isLatest
@@ -42,7 +44,7 @@ async function currency(
             return result.data;
         },
         { date: formatDateString },
-        spinner,
+        verbose ? spinner : undefined,
     );
 
     ensure(isValidCode(code, currencies), 'INVALID_FROM');
@@ -53,7 +55,7 @@ async function currency(
             return getCodeName(code, currencies, translate, timeout);
         },
         { date: formatDateString },
-        translate ? spinner : undefined,
+        verbose && translate ? spinner : undefined,
     );
 
     return `${palette.yellow(name)} (${palette.blue(code)})`;

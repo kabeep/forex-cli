@@ -24,10 +24,12 @@ async function convert(
         date: dateString = 'latest',
         timeout = 10_000,
         translate = false,
+        verbose = false,
         amount,
     }: ConvertOptions,
     spinner: Ora,
 ) {
+    !verbose && spinner.start();
     const isLatest = dateString === 'latest';
     const date = isLatest ? 'latest' : toDate(dateString);
     const formatDateString = isLatest
@@ -51,7 +53,7 @@ async function convert(
             return result.data;
         },
         { date: formatDateString },
-        spinner,
+        verbose ? spinner : undefined,
     );
 
     ensure(isValidCode(baseCode, currencies), 'INVALID_FROM');
@@ -75,7 +77,7 @@ async function convert(
             return { baseName, destName };
         },
         { date: formatDateString },
-        translate ? spinner : undefined,
+        verbose && translate ? spinner : undefined,
     );
 
     const print = createMessage(
@@ -103,7 +105,7 @@ async function convert(
                 base: baseCode,
                 dest: destCode,
             },
-            spinner,
+            verbose ? spinner : undefined,
         );
         return print(palette.yellow(useStatistic(rate)));
     }
@@ -128,8 +130,9 @@ async function convert(
             base: baseCode,
             dest: destCode,
         },
-        spinner,
+        verbose ? spinner : undefined,
     );
+
     return print(
         palette.yellow(useStatistic(numericAmount, { precision: 2 })),
         palette.yellow(useStatistic(resultData, { precision: 2 })),

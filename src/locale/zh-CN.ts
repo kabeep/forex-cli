@@ -21,6 +21,7 @@ export default {
     CMD_OPTION_DATE: '指定汇率的日期，或最新的 "latest"',
     CMD_OPTION_TIMEOUT: '请求超时时间 (毫秒)',
     CMD_OPTION_TRANSLATE: '翻译出现的货币或地区名称',
+    CMD_OPTION_VERBOSE: '输出程序内部执行的详细步骤信息',
     CMD_OPTION_FROM: '基准货币代码或区域代码',
     CMD_OPTION_TO: '目标货币代码或区域代码',
     CMD_OPTION_PRETTY: '美化输出格式',
