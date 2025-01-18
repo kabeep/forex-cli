@@ -40,52 +40,51 @@ pnpm add --global @kabeep/forex-cli
 forex -h
 ```
 
+Or use the abbreviation.
+
+```bash
+fx -h
+```
+
 ```bash
 forex <command> [options]
 
 Commands:
-  forex convert [amount]  Convert currency amounts       [default] [aliases: to]
-  forex currency [code]   Get available currency codes and names
-                                                         [aliases: cur, ccy, cy]
-  forex list              Print list of available currencies       [aliases: ls]
+  forex convert [amount]  Convert currency amounts                           [default] [aliases: to]
+  forex currency [code]   Get available currency codes and names             [aliases: cur, ccy, cy]
+  forex list              Print list of available currencies                           [aliases: ls]
   forex completion        generate completion script
 
 Options:
-  -d, --date       The date for the conversion rate, or "latest" for the most re
-                   cent                             [string] [default: "latest"]
-      --timeout    Request timeout (milliseconds)      [number] [default: 10000]
-      --translate  Translate occurrences of currency or region names
-                                                      [boolean] [default: false]
-  -f, --from       The base currency code or locale code
-                                                      [string] [default: "auto"]
-  -t, --to         The destination currency code or locale code
-                                                      [string] [default: "auto"]
-  -h, --help       Show help                                           [boolean]
-  -v, --version    Show version number                                 [boolean]
+  -d, --date       The date for the conversion rate, or "latest" for the most recent
+                                                                        [string] [default: "latest"]
+      --timeout    Request timeout (milliseconds)                          [number] [default: 10000]
+  -c, --clipboard  Write (copy) the result to the clipboard               [boolean] [default: false]
+  -T, --translate  Translate occurrences of currency or region names      [boolean] [default: false]
+  -V, --verbose    Output verbose messages on internal operations         [boolean] [default: false]
+  -f, --from       The base currency code or locale code                  [string] [default: "auto"]
+  -t, --to         The destination currency code or locale code           [string] [default: "auto"]
+  -h, --help       Show help                                                               [boolean]
+  -v, --version    Show version number                                                     [boolean]
 
 Examples:
-  forex list -t US -d 2024-12-01  Use the exchange rate for the specif
-                                            ied date
-  forex convert -t US -d "Dec 01, 2024"  Use the exchange rate for the specif
-                                            ied date
+  forex list -t US -d 2024-12-01         Use the exchange rate for the specified date
+  forex convert -t US -d "Dec 01, 2024"  Use the exchange rate for the specified date
   -------
-  forex convert -t US --timeout 30000  Set request timeout
-  forex currency -t US --translate  Print the translated currency name o
-                                            r region name according to the opera
-                                            ting system locale
-  forex 1000 -f USD -t EUR        Convert 1000 USD to Euros
+  forex convert -t US --timeout 30000    Set request timeout
+  forex currency -T -t US                Print the translated currency name or region name
+                                                    according to the operating system locale
+  forex 1000 -f USD -t EUR               Convert 1000 USD to Euros
   -------
-  forex -t USD                    Currency codes using ISO 4217
-  forex -t US                     Use locale codes from ISO 3166-1
-  forex -t America                Use country or region name
+  forex -t USD                           Currency codes using ISO 4217
+  forex -t US                            Use locale codes from ISO 3166-1
+  forex -t America                       Use country or region name
   -------
-  forex --from USD --to EUR       Specify base and target currencies
-  forex --from USD                Specify one of the currencies and au
-                                            tomatically fill in the other curren
-                                            cy through the OS's locale
-  forex --to USD                  Specify one of the currencies and au
-                                            tomatically fill in the other curren
-                                            cy through the OS's locale
+  forex --from USD --to EUR              Specify base and target currencies
+  forex --from USD                       Specify one of the currencies and automatically f
+                                                   ill in the other currency through the OS's locale
+  forex --to USD                         Specify one of the currencies and automatically f
+                                                   ill in the other currency through the OS's locale
 ```
 
 ### Quick Start
@@ -100,12 +99,6 @@ forex 1000 --from EUR
 ✔ Get the list of available currencies on latest 381ms
 ✔ Get the currency exchange rate between EUR and USD on latest 120ms
 ✨ 1,000.00 Euro (EUR) ≈ 1,050.60 US Dollar (USD)
-```
-
-or use abbr.
-
-```bash
-fx 1000 -f EUR
 ```
 
 ## 🔩 Command
@@ -124,13 +117,21 @@ fx 1000 -f EUR
 forex list --date "Dec 01, 2024" --timeout 10000 --translate
 ```
 
-| Option             | Type      | Optional | Default    | Description                                                       |
-|--------------------|-----------|----------|------------|-------------------------------------------------------------------|
-| `--date` / `-d`    | `string`  | true     | `"latest"` | The date for the conversion rate, or "latest" for the most recent |
-| `--timeout`        | `number`  | true     | `10_000`   | Request timeout (milliseconds)                                    |
-| `--translate`      | `boolean` | true     | `false`    | Translate occurrences of currency or region names                 |
-| `--version` / `-v` | `boolean` | true     | `false`    | Show version number                                               |
-| `--help` / `-h`    | `boolean` | true     | `false`    | Show help                                                         |
+Or use the abbreviation.
+
+```bash
+fx list -d "Dec 01, 2024" --timeout 10000 -TVc
+```
+
+| Option               | Type      | Optional | Default    | Description                                                       |
+|----------------------|-----------|----------|------------|-------------------------------------------------------------------|
+| `--date` / `-d`      | `string`  | true     | `"latest"` | The date for the conversion rate, or "latest" for the most recent |
+| `--timeout`          | `number`  | true     | `10_000`   | Request timeout (milliseconds)                                    |
+| `--clipboard` / `-c` | `boolean` | true     | `false`    | Write (copy) the result to the clipboard                          |
+| `--translate` / `-T` | `boolean` | true     | `false`    | Translate occurrences of currency or region names                 |
+| `--verbose` / `-V`   | `boolean` | true     | `false`    | Output verbose messages on internal operations                    |
+| `--version` / `-v`   | `boolean` | true     | `false`    | Show version number                                               |
+| `--help` / `-h`      | `boolean` | true     | `false`    | Show help                                                         |
 
 ### $ CONVERT (Default)
 
@@ -154,17 +155,16 @@ forex convert [amount]
 Convert currency amounts
 
 Options:
-  -d, --date       The date for the conversion rate, or "latest" for the most re
-                   cent                             [string] [default: "latest"]
-      --timeout    Request timeout (milliseconds)      [number] [default: 10000]
-      --translate  Translate occurrences of currency or region names
-                                                      [boolean] [default: false]
-  -f, --from       The base currency code or locale code
-                                                      [string] [default: "auto"]
-  -t, --to         The destination currency code or locale code
-                                                      [string] [default: "auto"]
-  -h, --help       Show help                                           [boolean]
-  -v, --version    Show version number                                 [boolean]
+  -d, --date       The date for the conversion rate, or "latest" for the most recent
+                                                                        [string] [default: "latest"]
+      --timeout    Request timeout (milliseconds)                          [number] [default: 10000]
+  -c, --clipboard  Write (copy) the result to the clipboard               [boolean] [default: false]
+  -T, --translate  Translate occurrences of currency or region names      [boolean] [default: false]
+  -V, --verbose    Output verbose messages on internal operations         [boolean] [default: false]
+  -f, --from       The base currency code or locale code                  [string] [default: "auto"]
+  -t, --to         The destination currency code or locale code           [string] [default: "auto"]
+  -h, --help       Show help                                                               [boolean]
+  -v, --version    Show version number                                                     [boolean]
 
 Examples:
   forex 1000 -f USD -t EUR   Convert 1000 USD to Euros
@@ -174,12 +174,10 @@ Examples:
   forex -t America           Use country or region name
   -------
   forex --from USD --to EUR  Specify base and target currencies
-  forex --from USD           Specify one of the currencies and automat
-                                       ically fill in the other currency through
-                                        the OS's locale
-  forex --to USD             Specify one of the currencies and automat
-                                       ically fill in the other currency through
-                                        the OS's locale
+  forex --from USD           Specify one of the currencies and automatically fill in the o
+                                       ther currency through the OS's locale
+  forex --to USD             Specify one of the currencies and automatically fill in the o
+                                       ther currency through the OS's locale
 ```
 
 - Convert 1000 USD to Euros.
@@ -235,13 +233,14 @@ forex currency [code]
 Get available currency codes and names
 
 Options:
-  -d, --date       The date for the conversion rate, or "latest" for the most re
-                   cent                             [string] [default: "latest"]
-      --timeout    Request timeout (milliseconds)      [number] [default: 10000]
-      --translate  Translate occurrences of currency or region names
-                                                      [boolean] [default: false]
-  -v, --version    Show version number                                 [boolean]
-  -h, --help       Show help                                           [boolean]
+  -d, --date       The date for the conversion rate, or "latest" for the most recent
+                                                                        [string] [default: "latest"]
+      --timeout    Request timeout (milliseconds)                          [number] [default: 10000]
+  -c, --clipboard  Write (copy) the result to the clipboard               [boolean] [default: false]
+  -T, --translate  Translate occurrences of currency or region names      [boolean] [default: false]
+  -V, --verbose    Output verbose messages on internal operations         [boolean] [default: false]
+  -h, --help       Show help                                                               [boolean]
+  -v, --version    Show version number                                                     [boolean]
 
 Examples:
   forex cy US       Obtained via ISO-3166-1-alpha-2 region code
@@ -298,14 +297,15 @@ forex list
 Print list of available currencies
 
 Options:
-  -d, --date       The date for the conversion rate, or "latest" for the most re
-                   cent                             [string] [default: "latest"]
-      --timeout    Request timeout (milliseconds)      [number] [default: 10000]
-      --translate  Translate occurrences of currency or region names
-                                                      [boolean] [default: false]
-  -p, --pretty     Pretty output format               [boolean] [default: false]
-  -v, --version    Show version number                                 [boolean]
-  -h, --help       Show help                                           [boolean]
+  -d, --date       The date for the conversion rate, or "latest" for the most recent
+                                                                        [string] [default: "latest"]
+      --timeout    Request timeout (milliseconds)                          [number] [default: 10000]
+  -c, --clipboard  Write (copy) the result to the clipboard               [boolean] [default: false]
+  -T, --translate  Translate occurrences of currency or region names      [boolean] [default: false]
+  -V, --verbose    Output verbose messages on internal operations         [boolean] [default: false]
+  -p, --pretty     Pretty output format                                   [boolean] [default: false]
+  -h, --help       Show help                                                               [boolean]
+  -v, --version    Show version number                                                     [boolean]
 
 Examples:
   forex ls     Shows the latest list of available currencies
