@@ -45,7 +45,7 @@ yargs(hideBin(process.argv))
         default: false,
     })
     .options('verbose', {
-        alias: 'V',
+        alias: 'v',
         type: 'boolean',
         desc: i18n.t('CMD_OPTION_VERBOSE'),
         default: false,
@@ -160,7 +160,7 @@ yargs(hideBin(process.argv))
         i18n.t('CMD_OPTION_USAGE_EG_TRANSLATE'),
     )
     .alias('h', 'help')
-    .alias('v', 'version')
+    .alias('V', 'version')
     .demandCommand()
     .strictCommands()
     .recommendCommands()
