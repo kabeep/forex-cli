@@ -6,9 +6,9 @@ import {
     formatDate,
     getCode,
     getCodeName,
+    getCurrencies,
     isValidCode,
     palette,
-    to,
     toDate,
     useClipboard,
     useHandler,
@@ -39,12 +39,7 @@ async function currency(
 
     const currencies = await useHandler(
         'CMD_MSG_FETCH_CURRENCIES',
-        async () => {
-            const [err, result] = await to(client.getCurrencies(date));
-            ensure(!err, 'TIMEOUT_CURRENCIES');
-            ensure(result.data?.length, 'INVALID_CURRENCIES');
-            return result.data;
-        },
+        () => getCurrencies(client),
         { date: formatDateString },
         verbose ? spinner : undefined,
     );

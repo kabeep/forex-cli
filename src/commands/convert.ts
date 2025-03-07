@@ -7,6 +7,7 @@ import {
     formatDate,
     getCode,
     getCodeName,
+    getCurrencies,
     isValidCode,
     normalizeAmount,
     palette,
@@ -37,6 +38,7 @@ async function convert(
     const formatDateString = isLatest
         ? (date as string)
         : formatDate(date as Date);
+    // return useCache([]);
 
     const client = new ForexClient({ timeout });
 
@@ -46,14 +48,7 @@ async function convert(
 
     const currencies = await useHandler(
         'CMD_MSG_FETCH_CURRENCIES',
-        async () => {
-            const [err, result] = await to(client.getCurrencies(date));
-
-            ensure(!err, 'TIMEOUT_CURRENCIES');
-            ensure(result.data?.length, 'INVALID_CURRENCIES');
-
-            return result.data;
-        },
+        () => getCurrencies(client),
         { date: formatDateString },
         verbose ? spinner : undefined,
     );

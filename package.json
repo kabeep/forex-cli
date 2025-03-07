@@ -28,6 +28,7 @@
         "@kabeep/forex": "^1.0.1",
         "@kabeep/node-translate": "^1.1.6",
         "clipboardy": "^4.0.0",
+        "env-paths": "^3.0.0",
         "iso-3166-1": "^2.1.1",
         "ora": "^8.1.1",
         "os-locale": "^6.0.2",

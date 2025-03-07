@@ -3,8 +3,8 @@ import type { Ora } from 'ora';
 import Table from 'terminal-table';
 import {
     boundary,
-    ensure,
     formatDate,
+    getCurrencies,
     palette,
     to,
     toDate,
@@ -36,12 +36,7 @@ async function list(
     !verbose && spinner.start();
     const currencies = await useHandler(
         'CMD_MSG_FETCH_CURRENCIES',
-        async () => {
-            const [err, result] = await to(client.getCurrencies(date));
-            ensure(!err, 'TIMEOUT_CURRENCIES');
-            ensure(result.data?.length, 'INVALID_CURRENCIES');
-            return result.data;
-        },
+        () => getCurrencies(client),
         { date: formatDateString },
         verbose ? spinner : undefined,
     );

@@ -40,7 +40,9 @@ export default {
     CMD_ERR_UNKNOWN: 'Unknown Error: If it occurs repeatedly, please submit an issue in https://github.com/kabeep/forex-cli/issues',
     CMD_ERR_UNMEANING: 'Meaningless currency group, please enter a different currency code',
     CMD_ERR_INVALID_DATE: 'Invalid date, please check --date parameter',
-    CMD_ERR_INVALID_AMOUNT: '"{{amount}}" is not a valid amount. Please enter a valid amount, such as "1000", "1,000", "1e3" or "1k"',
+    CMD_ERR_INVALID_AMOUNT: '"{{amount}}" 不是有效金额, 请输入有效金额, 例如 "1000" 或 "1e3", 再比如 "101,001,001.01" 或 "1b1m1k1.01"',
+    CMD_ERR_CREATE_CACHE_DIR: 'The cache directory cannot be created, please check CLI permissions',
+    CMD_ERR_WRITE_CACHE_FILE: 'Unable to write cached files, please check CLI permissions',
     CMD_ERR_TIMEOUT_CURRENCIES: 'Request for list of available currencies timed out',
     CMD_ERR_CLIPBOARD_WRITE: 'Clipboard writing failed',
     CMD_ERR_INVALID_CURRENCIES: 'The list of available currencies for the specified date is empty',
@@ -52,4 +54,4 @@ export default {
     CMD_ERR_INVALID_CONVERT: 'Unsupported currency code on the specified date',
     CMD_ERR_INVALID_COUNTRY: 'Country or region names not yet supported',
     CMD_ERR_USER_CANCEL: 'User actively cancels',
-};
+};
