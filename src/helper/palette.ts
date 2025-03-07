@@ -1,4 +1,4 @@
-import createPalette from './_internal/craete-palette';
+import createPalette from './_internal/create-palette';
 
 const colorful = (code: number) => createPalette(code, 39);
 
