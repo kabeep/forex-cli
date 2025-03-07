@@ -53,9 +53,7 @@ async function currency(
 
     const name = await useHandler(
         'CMD_MSG_FETCH_TRANSLATION',
-        () => {
-            return getCodeName(code, currencies, translate, timeout);
-        },
+        () => getCodeName(code, currencies, translate, timeout),
         { date: formatDateString },
         verbose && translate ? spinner : undefined,
     );
