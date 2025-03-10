@@ -36,7 +36,7 @@ async function list(
     !verbose && spinner.start();
     const currencies = await useHandler(
         'CMD_MSG_FETCH_CURRENCIES',
-        () => getCurrencies(client),
+        () => getCurrencies(client, date),
         { date: formatDateString },
         verbose ? spinner : undefined,
     );

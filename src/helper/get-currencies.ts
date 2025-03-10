@@ -13,11 +13,10 @@ export interface CacheOptions {
     currencies: AvailableCurrency[];
 }
 
-async function getCurrencies(client: ForexClient) {
+async function getCurrencies(client: ForexClient, date: Date | 'latest') {
     const unexpected = ensureDirectory(cacheDirectory);
     if (unexpected) throw new Error('CREATE_CACHE_DIR');
 
-    const date = new Date();
     const formatDateString = new Date().toISOString().split('T')[0];
 
     const cachePath = path.join(cacheDirectory, 'currencies.json');
