@@ -38,7 +38,7 @@
     },
     "devDependencies": {
         "@biomejs/biome": "^1.9.4",
-        "@types/node": "^22.10.1",
+        "@types/node": "^24.7.0",
         "@types/update-notifier": "^6.0.8",
         "@types/yargs": "^17.0.33",
         "cloc": "^2.2.0-cloc",
