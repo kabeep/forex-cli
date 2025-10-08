@@ -21,7 +21,7 @@ English | [简体中文][zh-cn-url]
 > [!WARNING]
 >
 > By default, the CLI displays numbers using `.` for decimals and `,` for thousands.
->1
+>
 > Locale-specific formats (such as using `,` for decimals and `.` for thousands in Germany) are not supported currently.
 
 A Node.js Library to convert foreign exchange in terminal.
