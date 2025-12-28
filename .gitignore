@@ -1,14 +1,38 @@
+# Dependencies
+node_modules
+
 # Build
 dist/
 
-# Cache
-.cache
+# Environment
+.env*
 
-# Lock Files
+# Cache
+.cache/
+
+# Coverage
+coverage/
+
+# Package Manager Lockfiles
 package-lock.json
 yarn.lock
+pnpm-lock.yaml
 
-# VisualStudioCode template
+# pnpm workspace
+pnpm-workspace.yaml
+
+#! yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+#!.yarn/cache
+.pnp.*
+
+#! VSCode Presets
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -16,26 +40,17 @@ yarn.lock
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 
-# Local History for Visual Studio Code
+# Local History for VSCode
 .history/
 
-# IntelliJ project files
-.idea
+# IntelliJ
+.idea/
 
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
-
-# Dependency directories
-node_modules/
-
-# Engineering directories
-# lib/
-
-# Coverage directories
-coverage/
