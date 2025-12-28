@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import { readFileSync } from 'node:fs';
 import process from 'node:process';
-import updateNotifier from 'update-notifier';
 import yargs, { type Argv } from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
@@ -15,8 +14,6 @@ process.on('SIGINT', () => {
 const pkg = JSON.parse(
     readFileSync(new URL('../package.json', import.meta.url)).toString('utf8'),
 );
-
-updateNotifier({ pkg }).notify({ isGlobal: true });
 
 yargs(hideBin(process.argv))
     .scriptName('forex')
