@@ -7,7 +7,11 @@
         "defaultBranch": "master"
     },
     "files": {
-        "ignore": ["dist", "src/locale"],
+        "includes": [
+            "**",
+            "!**/dist",
+            "!**/src/locale"
+        ],
         "ignoreUnknown": false
     },
     "formatter": {
@@ -17,8 +21,12 @@
         "lineWidth": 80,
         "lineEnding": "lf"
     },
-    "organizeImports": {
-        "enabled": true
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": "on"
+            }
+        }
     },
     "linter": {
         "enabled": true,
