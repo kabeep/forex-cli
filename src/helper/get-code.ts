@@ -2,8 +2,10 @@ import confirm from '@inquirer/confirm';
 import search from '@inquirer/search';
 import { ForexClient } from '@kabeep/forex';
 import ISO3166 from 'iso-3166-1';
+import type { Ora } from 'ora';
 import { LOCALE_CODE } from '../constants';
 import fuzzySearch from './_internal/fuzzy-search';
+import useSpinner from './_internal/use-spinner';
 import useTranslate from './_internal/use-translate';
 import ensure from './ensure';
 import i18n from './i18n';
@@ -42,7 +44,12 @@ const translateCountryName = async (name: string, timeout: number) => {
     return translation || name;
 };
 
-async function getCode(code?: string, translate = false, timeout = 10_000) {
+async function getCode(
+    code?: string,
+    translate = false,
+    timeout = 10_000,
+    spinner?: Ora,
+) {
     const client = new ForexClient();
     if (!code || code === 'auto')
         return client.getCode(LOCALE_CODE.split('-')[1]);
@@ -68,21 +75,25 @@ async function getCode(code?: string, translate = false, timeout = 10_000) {
             ? await translateCountriesName(matchingList, timeout)
             : matchingList;
 
-        const [err, countryCode] = await to(
-            search({
-                message: i18n.t('CMD_MSG_CHOICE_COUNTRY'),
-                pageSize: 10,
-                source: (term: string | undefined) => {
-                    if (!term) return searchList;
+        const [err, countryCode] = await useSpinner(
+            () =>
+                to(
+                    search({
+                        message: i18n.t('CMD_MSG_CHOICE_COUNTRY'),
+                        pageSize: 10,
+                        source: (term: string | undefined) => {
+                            if (!term) return searchList;
 
-                    return searchList.filter((options) =>
-                        fuzzySearch(
-                            term.toLowerCase(),
-                            options.name.toLowerCase(),
-                        ),
-                    );
-                },
-            }),
+                            return searchList.filter((options) =>
+                                fuzzySearch(
+                                    term.toLowerCase(),
+                                    options.name.toLowerCase(),
+                                ),
+                            );
+                        },
+                    }),
+                ),
+            spinner,
         );
         ensure(!err, 'USER_CANCEL');
         return client.getCode(countryCode);
@@ -94,13 +105,17 @@ async function getCode(code?: string, translate = false, timeout = 10_000) {
         const confirmName = translate
             ? await translateCountryName(countryName, timeout)
             : countryName;
-        const [err, isConfirm] = await to(
-            confirm({
-                message: i18n.t('CMD_MSG_CONFIRM_COUNTRY', {
-                    region: confirmName,
-                }),
-                default: true,
-            }),
+        const [err, isConfirm] = await useSpinner(
+            () =>
+                to(
+                    confirm({
+                        message: i18n.t('CMD_MSG_CONFIRM_COUNTRY', {
+                            region: confirmName,
+                        }),
+                        default: true,
+                    }),
+                ),
+            spinner,
         );
         ensure(!err, 'USER_CANCEL');
         ensure(isConfirm, 'INVALID_COUNTRY');

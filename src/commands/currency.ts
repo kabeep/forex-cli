@@ -35,7 +35,7 @@ async function currency(
 
     const client = new ForexClient({ timeout });
 
-    const code = await getCode(input, translate, timeout);
+    const code = await getCode(input, translate, timeout, spinner);
 
     const currencies = await useHandler(
         'CMD_MSG_FETCH_CURRENCIES',

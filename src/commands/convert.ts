@@ -42,8 +42,8 @@ async function convert(
 
     const client = new ForexClient({ timeout });
 
-    const baseCode = await getCode(fromCurrency, translate, timeout);
-    const destCode = await getCode(toCurrency, translate, timeout);
+    const baseCode = await getCode(fromCurrency, translate, timeout, spinner);
+    const destCode = await getCode(toCurrency, translate, timeout, spinner);
     ensure(baseCode !== destCode, 'UNMEANING');
 
     const currencies = await useHandler(
