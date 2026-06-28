@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import { readFileSync } from 'node:fs';
 import process from 'node:process';
 import yargs, { type Argv } from 'yargs';
 import { hideBin } from 'yargs/helpers';
@@ -10,10 +9,6 @@ import { convert, currency, i18n, list, palette } from '../src';
 process.on('SIGINT', () => {
     process.exit(0);
 });
-
-const pkg = JSON.parse(
-    readFileSync(new URL('../package.json', import.meta.url)).toString('utf8'),
-);
 
 yargs(hideBin(process.argv))
     .scriptName('forex')
